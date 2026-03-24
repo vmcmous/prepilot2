@@ -96,7 +96,7 @@ activeClass = "actTD";
 inactiveClass = "inactTD";
 boxClass = "boxTD";
 cssname = "mlweb.css";
-nextURL = "thanks.html";
+nextURL = "";
 expname = "PREPILOT";
 randomOrder = false;
 recOpenCells = false;
@@ -226,12 +226,14 @@ Once you are ready, make your decision.
 </FORM>
 <script>
 document.forms['mlwebform'].addEventListener('submit', function(e) {
+
+    e.preventDefault();
+
     var launch_choice = document.querySelector('input[name="launch_choice"]:checked');
     var pdata = document.forms['mlwebform'].elements['procdata'].value;
 
     if (!launch_choice) {
         alert('Please select a decision before continuing.');
-        e.preventDefault();
         return;
     }
 
@@ -243,7 +245,6 @@ document.forms['mlwebform'].addEventListener('submit', function(e) {
         }
     }, '*');
 
-    // do NOT prevent submission here
 });
 </script>
 </body>
