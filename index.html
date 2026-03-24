@@ -220,15 +220,35 @@ Once you are ready, make your decision.
 
 <!--END postHTML-->
 <script>
-window.addEventListener('load', function() {
-    setInterval(function() {
-        var procdata = document.mlwebform.procdata.value;
-        if (procdata) {
+window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'getMlwebData') {
+        var form = document.forms['mlwebform'];
+        if (!form) {
             window.parent.postMessage({
-                mlweb_data: procdata
+                type: 'mlwebData',
+                error: 'mlwebform not found'
+            }, '*');
+            return;
+        }
+
+        try {
+            // Force Mouselab to finalize procdata
+            if (typeof checkForm === 'function') {
+                checkForm(form);
+            }
+
+            var procdata = form.procdata ? form.procdata.value : "";
+
+            window.parent.postMessage({
+                type: 'mlwebData',
+                procdata: procdata
+            }, '*');
+        } catch (e) {
+            window.parent.postMessage({
+                type: 'mlwebData',
+                error: String(e)
             }, '*');
         }
-    }, 2000);
+    }
 });
 </script>
-</FORM></body></html>
