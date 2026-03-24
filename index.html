@@ -217,24 +217,31 @@ Once you are ready, make your decision.
 <!--end cell--></TR></TABLE>
 <!-- END MOUSELAB TABLE -->
 <!--BEGIN postHTML-->
-<br><br>
-<INPUT type="submit" value="Next Page" onClick="timefunction('submit','submit','submit')">
+<h3>Decision Question</h3>
+<p>Based on the information you reviewed, what is your recommendation?</p>
+<label><input type="radio" name="launch_choice" value="Launch" required> I would launch the product</label><br>
+<label><input type="radio" name="launch_choice" value="No Launch" required> I would NOT launch the product</label><br><br>
 <!--END postHTML-->
+<INPUT type="submit" value="Submit Decision" onClick="timefunction('submit','submit','submit')">
+</FORM>
 <script>
 document.forms['mlwebform'].addEventListener('submit', function(e) {
     e.preventDefault();
-
+    var launch_choice = document.querySelector('input[name="launch_choice"]:checked');
     var pdata = document.forms['mlwebform'].elements['procdata'].value;
-
+    if (!launch_choice) {
+        alert('Please select a decision before continuing.');
+        return false;
+    }
     window.parent.postMessage({
         type: 'mouselabComplete',
         data: {
-            choice: '',
-            reason: '',
+            choice: launch_choice.value,
             processData: pdata
         }
     }, '*');
-
     return false;
 });
 </script>
+</body>
+</html>
