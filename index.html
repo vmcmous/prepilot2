@@ -222,13 +222,19 @@ Once you are ready, make your decision.
 <!--END postHTML-->
 <script>
 document.forms['mlwebform'].addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var pdata = document.forms['mlwebform'].elements['procdata'].value;
+
     window.parent.postMessage({
         type: 'mouselabComplete',
         data: {
             choice: '',
             reason: '',
-            processData: document.forms['mlwebform'].elements['procdata'].value
+            processData: pdata
         }
     }, '*');
+
+    return false;
 });
 </script>
