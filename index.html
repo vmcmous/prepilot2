@@ -1,0 +1,265 @@
+<HTML>
+<HEAD>
+<TITLE>MouselabWEB Survey</TITLE>
+<script language=javascript src="mlweb.js"></SCRIPT>
+<link rel="stylesheet" href="mlweb.css" type="text/css">
+</head>
+
+<body onLoad="timefunction('onload','body','body')">
+
+<!--BEGIN TABLE STRUCTURE-->
+<SCRIPT language="javascript">
+//override defaults
+mlweb_outtype="CSV";
+mlweb_fname="mlwebform";
+tag =
+ "^OVERVIEW^DETAILED^INDEPTH`"
+ + "Demand_Header^Demand_Summary^Demand_Detailed^Demand_InDepth`"
+ + "Channels_Header^Channels_Summary^Channels_Detailed^Channels_InDepth`"
+ + "Operations_Header^Operations_Summary^Operations_Detailed^Operations_InDepth`"
+ + "Pricing_Header^Pricing_Summary^Pricing_Detailed^Pricing_InDepth`"
+ + "Finance_Header^Finance_Summary^Finance_Detailed^Finance_InDepth`"
+ + "Risk_Header^Risk_Summary^Risk_Detailed^Risk_InDepth";
+
+txt = "Information Level^<span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Overview </span>^<span style='background-color: #999999; color: white; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Detailed Analysis </span>^<span style='background-color: #333333; color: white; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> In-Depth Insights (Tradeoffs & Implications) </span>`"
+ + "Customer Demand & Adoption^Estimates indicate moderate customer interest in the product. Based on similar past launches, expected first-year adoption is neither clearly strong nor clearly weak^Customer survey data suggests that approximately 35–45% of respondents would consider purchasing the product at the proposed price. Interest is higher among customers aged 18–30 and lower among older segments. Research notes that stated interest typically overpredicts actual purchases by 10–15%^Demand projections vary substantially depending on assumptions about repeat purchases and word-of-mouth growth. In optimistic scenarios, adoption grows steadily after the first six months. In pessimistic scenarios, initial sales decline by 20–25% after early adopters are reached. Analysis emphasizes uncertainty around long-term customer loyalty`"
+ + "Go-to-Market & Channels^The analysis indicates the product could be launched through the company's existing online and retail sales channels with limited upfront changes^Analysis finds that existing marketing channels—such as social media ads and current retail partners—can be used at launch. However, internal benchmarks suggest that new products typically receive less promotional focus unless marketing spending increases by 20–30% during the first three months.^Analysis suggests that achieving visibility comparable to established products may require sustained marketing investment for at least six months. Reducing marketing spend early lowers costs but increases the risk that customers remain unaware of the product. Increasing spend improves awareness but reduces short-term profitability.`"
+ + "Operations & Scalability^Current production facilities can support an initial launch without major equipment upgrades^Operations data indicates that current facilities can handle initial production volumes of up to 10,000 units per month. If demand exceeds this level, analysis flags potential pressure on labor scheduling and supplier lead times^Scaling production beyond current capacity would likely require overtime shifts or adding secondary suppliers, increasing unit costs by an estimated 5–10%. Caution is advised that rapid scaling may also raise the probability of quality issues or delivery delays`"
+ + "Pricing & Unit Economics^The product could be priced within the same range as comparable products currently on the market^Pricing simulations show that at the proposed price, each unit generates a contribution margin of roughly $8–$12. However, modest cost increases or promotional discounts could reduce margins by half.^Profitability improves meaningfully only if monthly sales exceed roughly 15,000 units. Lowering prices by 10% could increase demand but would reduce per-unit margins substantially. Higher prices preserve margins but risk slowing adoption, especially among price-sensitive customers.`"
+ + "Financial Outlook & Investment Needs^Financial estimates suggest the launch would require a noticeable upfront investment before any returns are realized^Financial models estimate upfront launch costs of approximately $1.2–$1.6 million, including marketing and setup expenses. Under baseline assumptions, break-even occurs after roughly 24–36 months^Financial projections show outcomes ranging from a loss of most initial investment to modest annual returns of 6–9% after year three. Committing resources to this launch may delay or limit funding for other internal initiatives.`"
+ + "Risk & Contingencies^Several uncertainties have been identified that could meaningfully affect the outcome of the product launch^Key risks identified include slower-than-expected adoption, competitor price matching, and short-term production delays. Individually these risks appear manageable, but their combined effects could significantly reduce performance^Outlined risk responses include piloting the product in one region, setting performance checkpoints after three and six months, or delaying full-scale rollout. These options reduce downside risk but also slow learning and limit potential upside if demand proves strong.";
+
+state = "1^1^1^1`"
+ + "1^1^1^1`"
+ + "1^1^1^1`"
+ + "1^1^1^1`"
+ + "1^1^1^1`"
+ + "1^1^1^1`"
+ + "1^1^1^1";
+
+box = " Information Level^<span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Overview </span>^<span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Detailed Analysis </span>^<span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> In-Depth (Tradeoffs & Implications) </span>`"
+ + "Customer Demand & Adoption^Summary^Detailed^In-Depth`"
+ + "Go-to-Market & Channels^Summary^Detailed^In-Depth`"
+ + "Operations & Scalability^Summary^Detailed^In-Depth`"
+ + "Pricing & Unit Economics^Summary^Detailed^In-Depth`"
+ + "Financial Outlook & Investment Needs^Summary^Detailed^In-Depth`"
+ + "Risk & Contingencies^Summary^Detailed^In-Depth";
+
+CBCol = "0^0^0^0";
+CBRow = "0^0^0^0^0^0^0";
+W_Col = "120^200^200^200";
+H_Row = "100^200^200^200^200^200^200";
+
+chkchoice = "nobuttons";
+btnFlg = 0;
+btnType = "radio";
+btntxt = "";
+btnstate = "";
+btntag = "";
+to_email = "vmcieslak@me.com";
+colFix = false;
+rowFix = false;
+CBpreset = false;
+evtOpen = 0;
+evtClose = 0;
+chkFrm=false;
+warningTxt = "Some questions have not been answered. Please answer all questions before continuing!";
+tmTotalSec = 60;
+tmStepSec = 1;
+tmWidthPx = 200;
+tmFill = true;
+tmShowTime = true;
+tmCurTime = 0;
+tmActive = false;
+tmDirectStart = true;
+tmMinLabel = "min";
+tmSecLabel = "sec";
+tmLabel = "Timer: ";
+
+delay = "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0`"
+ + "0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0^0";
+activeClass = "actTD";
+inactiveClass = "inactTD";
+boxClass = "boxTD";
+cssname = "mlweb.css";
+nextURL = "";
+expname = "PREPILOT";
+randomOrder = false;
+recOpenCells = false;
+masterCond = 1;
+loadMatrices();
+</SCRIPT>
+<!--END TABLE STRUCTURE-->
+
+<FORM name="mlwebform" onSubmit="return checkForm(this)" method="POST" action="https://www.mouselabweb.org/mlwebmailer.php"><INPUT type=hidden name="procdata" value="">
+<input type=hidden name="subject" value="">
+<input type=hidden name="expname" value="">
+<input type=hidden name="nextURL" value="">
+<input type=hidden name="choice" value="">
+<input type=hidden name="condnum" value="">
+<input type=hidden name="to_email" value="">
+<!--BEGIN preHTML-->
+<h2 style="margin-bottom: 8px !important;">Decision Task</h2>
+
+<p style="margin: 0 0 8px 0 !important; padding-bottom: 4px !important;">
+The information provided below has been analyzed.
+</p>
+
+<p style="margin: 0 0 8px 0 !important; padding-bottom: 4px !important;">
+In the matrix below, you can see information pertaining to the decision by hovering over the boxes.
+</p>
+
+<p style="margin: 0 0 8px 0 !important; padding-bottom: 4px !important;">
+The rows represent different aspects of the decision. The columns represent different levels of detail.
+</p>
+
+<p style="margin: 0 0 8px 0 !important; padding-bottom: 4px !important;">
+You may look at the information in any order and for as long as you want.
+</p>
+
+<p style="margin: 0 0 16px 0 !important; padding-bottom: 4px !important;">
+Once you are ready, make your decision.
+</p>
+<!--END preHTML-->
+<!-- MOUSELAB TABLE -->
+<TABLE border=1>
+<TR>
+<!--cell a0(tag:)-->
+<TD align=center valign=middle><DIV ID="a0_cont" style="position: relative; height: 100px; width: 120px;"><DIV ID="a0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 120px; clip: rect(0px 200px 100px 0px); z-index: 1;"><TABLE><TD ID="a0_td" align=center valign=center width=115 height=95 class="actTD">Information Level</TD></TABLE></DIV><DIV ID="a0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 120px; clip: rect(0px 200px 100px 0px); z-index: 2;"><TABLE><TD ID="a0_tdbox" align=center valign=center width=115 height=95 class="boxTD"> Information Level</TD></TABLE></DIV><DIV ID="a0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="a0" onMouseOver="ShowCont('a0',event)" onMouseOut="HideCont('a0',event)"><IMG NAME="a0" SRC="transp.gif" border=0 width=120 height=100></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell a1(tag:OVERVIEW)-->
+<TD align=center valign=middle><DIV ID="a1_cont" style="position: relative; height: 100px; width: 200px;"><DIV ID="a1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 1;"><TABLE><TD ID="a1_td" align=center valign=center width=195 height=95 class="actTD"><span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Overview </span></TD></TABLE></DIV><DIV ID="a1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 2;"><TABLE><TD ID="a1_tdbox" align=center valign=center width=195 height=95 class="boxTD"><span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Overview </span></TD></TABLE></DIV><DIV ID="a1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="a1" onMouseOver="ShowCont('a1',event)" onMouseOut="HideCont('a1',event)"><IMG NAME="a1" SRC="transp.gif" border=0 width=200 height=100></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell a2(tag:DETAILED)-->
+<TD align=center valign=middle><DIV ID="a2_cont" style="position: relative; height: 100px; width: 200px;"><DIV ID="a2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 1;"><TABLE><TD ID="a2_td" align=center valign=center width=195 height=95 class="actTD"><span style='background-color: #999999; color: white; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Detailed Analysis </span></TD></TABLE></DIV><DIV ID="a2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 2;"><TABLE><TD ID="a2_tdbox" align=center valign=center width=195 height=95 class="boxTD"><span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> Detailed Analysis </span></TD></TABLE></DIV><DIV ID="a2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="a2" onMouseOver="ShowCont('a2',event)" onMouseOut="HideCont('a2',event)"><IMG NAME="a2" SRC="transp.gif" border=0 width=200 height=100></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell a3(tag:INDEPTH)-->
+<TD align=center valign=middle><DIV ID="a3_cont" style="position: relative; height: 100px; width: 200px;"><DIV ID="a3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 1;"><TABLE><TD ID="a3_td" align=center valign=center width=195 height=95 class="actTD"><span style='background-color: #333333; color: white; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> In-Depth Insights (Tradeoffs & Implications) </span></TD></TABLE></DIV><DIV ID="a3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; clip: rect(0px 200px 100px 0px); z-index: 2;"><TABLE><TD ID="a3_tdbox" align=center valign=center width=195 height=95 class="boxTD"><span style='background-color: white; color: black; font-weight: bold; padding: 2px 4px; border-radius: 2px;'> In-Depth (Tradeoffs & Implications) </span></TD></TABLE></DIV><DIV ID="a3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 100px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="a3" onMouseOver="ShowCont('a3',event)" onMouseOut="HideCont('a3',event)"><IMG NAME="a3" SRC="transp.gif" border=0 width=200 height=100></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell b0(tag:Demand_Header)-->
+<TD align=center valign=middle><DIV ID="b0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="b0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="b0_td" align=center valign=center width=115 height=195 class="actTD">Customer Demand & Adoption</TD></TABLE></DIV><DIV ID="b0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="b0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Customer Demand & Adoption</TD></TABLE></DIV><DIV ID="b0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="b0" onMouseOver="ShowCont('b0',event)" onMouseOut="HideCont('b0',event)"><IMG NAME="b0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell b1(tag:Demand_Summary)-->
+<TD align=center valign=middle><DIV ID="b1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="b1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="b1_td" align=center valign=center width=195 height=195 class="actTD">Estimates indicate moderate customer interest in the product. Based on similar past launches, expected first-year adoption is neither clearly strong nor clearly weak</TD></TABLE></DIV><DIV ID="b1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="b1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="b1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="b1" onMouseOver="ShowCont('b1',event)" onMouseOut="HideCont('b1',event)"><IMG NAME="b1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell b2(tag:Demand_Detailed)-->
+<TD align=center valign=middle><DIV ID="b2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="b2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="b2_td" align=center valign=center width=195 height=195 class="actTD">Customer survey data suggests that approximately 35–45% of respondents would consider purchasing the product at the proposed price. Interest is higher among customers aged 18–30 and lower among older segments. Research notes that stated interest typically overpredicts actual purchases by 10–15%</TD></TABLE></DIV><DIV ID="b2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="b2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="b2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="b2" onMouseOver="ShowCont('b2',event)" onMouseOut="HideCont('b2',event)"><IMG NAME="b2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell b3(tag:Demand_InDepth)-->
+<TD align=center valign=middle><DIV ID="b3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="b3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="b3_td" align=center valign=center width=195 height=195 class="actTD">Demand projections vary substantially depending on assumptions about repeat purchases and word-of-mouth growth. In optimistic scenarios, adoption grows steadily after the first six months. In pessimistic scenarios, initial sales decline by 20–25% after early adopters are reached. Analysis emphasizes uncertainty around long-term customer loyalty</TD></TABLE></DIV><DIV ID="b3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="b3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="b3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="b3" onMouseOver="ShowCont('b3',event)" onMouseOut="HideCont('b3',event)"><IMG NAME="b3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell c0(tag:Channels_Header)-->
+<TD align=center valign=middle><DIV ID="c0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="c0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="c0_td" align=center valign=center width=115 height=195 class="actTD">Go-to-Market & Channels</TD></TABLE></DIV><DIV ID="c0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="c0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Go-to-Market & Channels</TD></TABLE></DIV><DIV ID="c0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="c0" onMouseOver="ShowCont('c0',event)" onMouseOut="HideCont('c0',event)"><IMG NAME="c0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell c1(tag:Channels_Summary)-->
+<TD align=center valign=middle><DIV ID="c1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="c1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="c1_td" align=center valign=center width=195 height=195 class="actTD">The analysis indicates the product could be launched through the company's existing online and retail sales channels with limited upfront changes</TD></TABLE></DIV><DIV ID="c1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="c1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="c1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="c1" onMouseOver="ShowCont('c1',event)" onMouseOut="HideCont('c1',event)"><IMG NAME="c1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell c2(tag:Channels_Detailed)-->
+<TD align=center valign=middle><DIV ID="c2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="c2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="c2_td" align=center valign=center width=195 height=195 class="actTD">Analysis finds that existing marketing channels—such as social media ads and current retail partners—can be used at launch. However, internal benchmarks suggest that new products typically receive less promotional focus unless marketing spending increases by 20–30% during the first three months.</TD></TABLE></DIV><DIV ID="c2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="c2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="c2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="c2" onMouseOver="ShowCont('c2',event)" onMouseOut="HideCont('c2',event)"><IMG NAME="c2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell c3(tag:Channels_InDepth)-->
+<TD align=center valign=middle><DIV ID="c3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="c3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="c3_td" align=center valign=center width=195 height=195 class="actTD">Analysis suggests that achieving visibility comparable to established products may require sustained marketing investment for at least six months. Reducing marketing spend early lowers costs but increases the risk that customers remain unaware of the product. Increasing spend improves awareness but reduces short-term profitability.</TD></TABLE></DIV><DIV ID="c3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="c3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="c3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="c3" onMouseOver="ShowCont('c3',event)" onMouseOut="HideCont('c3',event)"><IMG NAME="c3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell d0(tag:Operations_Header)-->
+<TD align=center valign=middle><DIV ID="d0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="d0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="d0_td" align=center valign=center width=115 height=195 class="actTD">Operations & Scalability</TD></TABLE></DIV><DIV ID="d0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="d0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Operations & Scalability</TD></TABLE></DIV><DIV ID="d0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="d0" onMouseOver="ShowCont('d0',event)" onMouseOut="HideCont('d0',event)"><IMG NAME="d0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell d1(tag:Operations_Summary)-->
+<TD align=center valign=middle><DIV ID="d1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="d1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="d1_td" align=center valign=center width=195 height=195 class="actTD">Current production facilities can support an initial launch without major equipment upgrades</TD></TABLE></DIV><DIV ID="d1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="d1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="d1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="d1" onMouseOver="ShowCont('d1',event)" onMouseOut="HideCont('d1',event)"><IMG NAME="d1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell d2(tag:Operations_Detailed)-->
+<TD align=center valign=middle><DIV ID="d2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="d2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="d2_td" align=center valign=center width=195 height=195 class="actTD">Operations data indicates that current facilities can handle initial production volumes of up to 10,000 units per month. If demand exceeds this level, analysis flags potential pressure on labor scheduling and supplier lead times</TD></TABLE></DIV><DIV ID="d2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="d2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="d2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="d2" onMouseOver="ShowCont('d2',event)" onMouseOut="HideCont('d2',event)"><IMG NAME="d2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell d3(tag:Operations_InDepth)-->
+<TD align=center valign=middle><DIV ID="d3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="d3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="d3_td" align=center valign=center width=195 height=195 class="actTD">Scaling production beyond current capacity would likely require overtime shifts or adding secondary suppliers, increasing unit costs by an estimated 5–10%. Caution is advised that rapid scaling may also raise the probability of quality issues or delivery delays</TD></TABLE></DIV><DIV ID="d3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="d3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="d3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="d3" onMouseOver="ShowCont('d3',event)" onMouseOut="HideCont('d3',event)"><IMG NAME="d3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell e0(tag:Pricing_Header)-->
+<TD align=center valign=middle><DIV ID="e0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="e0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="e0_td" align=center valign=center width=115 height=195 class="actTD">Pricing & Unit Economics</TD></TABLE></DIV><DIV ID="e0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="e0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Pricing & Unit Economics</TD></TABLE></DIV><DIV ID="e0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="e0" onMouseOver="ShowCont('e0',event)" onMouseOut="HideCont('e0',event)"><IMG NAME="e0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell e1(tag:Pricing_Summary)-->
+<TD align=center valign=middle><DIV ID="e1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="e1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="e1_td" align=center valign=center width=195 height=195 class="actTD">The product could be priced within the same range as comparable products currently on the market</TD></TABLE></DIV><DIV ID="e1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="e1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="e1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="e1" onMouseOver="ShowCont('e1',event)" onMouseOut="HideCont('e1',event)"><IMG NAME="e1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell e2(tag:Pricing_Detailed)-->
+<TD align=center valign=middle><DIV ID="e2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="e2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="e2_td" align=center valign=center width=195 height=195 class="actTD">Pricing simulations show that at the proposed price, each unit generates a contribution margin of roughly $8–$12. However, modest cost increases or promotional discounts could reduce margins by half.</TD></TABLE></DIV><DIV ID="e2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="e2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="e2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="e2" onMouseOver="ShowCont('e2',event)" onMouseOut="HideCont('e2',event)"><IMG NAME="e2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell e3(tag:Pricing_InDepth)-->
+<TD align=center valign=middle><DIV ID="e3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="e3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="e3_td" align=center valign=center width=195 height=195 class="actTD">Profitability improves meaningfully only if monthly sales exceed roughly 15,000 units. Lowering prices by 10% could increase demand but would reduce per-unit margins substantially. Higher prices preserve margins but risk slowing adoption, especially among price-sensitive customers.</TD></TABLE></DIV><DIV ID="e3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="e3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="e3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="e3" onMouseOver="ShowCont('e3',event)" onMouseOut="HideCont('e3',event)"><IMG NAME="e3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell f0(tag:Finance_Header)-->
+<TD align=center valign=middle><DIV ID="f0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="f0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="f0_td" align=center valign=center width=115 height=195 class="actTD">Financial Outlook & Investment Needs</TD></TABLE></DIV><DIV ID="f0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="f0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Financial Outlook & Investment Needs</TD></TABLE></DIV><DIV ID="f0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="f0" onMouseOver="ShowCont('f0',event)" onMouseOut="HideCont('f0',event)"><IMG NAME="f0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell f1(tag:Finance_Summary)-->
+<TD align=center valign=middle><DIV ID="f1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="f1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="f1_td" align=center valign=center width=195 height=195 class="actTD">Financial estimates suggest the launch would require a noticeable upfront investment before any returns are realized</TD></TABLE></DIV><DIV ID="f1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="f1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="f1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="f1" onMouseOver="ShowCont('f1',event)" onMouseOut="HideCont('f1',event)"><IMG NAME="f1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell f2(tag:Finance_Detailed)-->
+<TD align=center valign=middle><DIV ID="f2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="f2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="f2_td" align=center valign=center width=195 height=195 class="actTD">Financial models estimate upfront launch costs of approximately $1.2–$1.6 million, including marketing and setup expenses. Under baseline assumptions, break-even occurs after roughly 24–36 months</TD></TABLE></DIV><DIV ID="f2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="f2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="f2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="f2" onMouseOver="ShowCont('f2',event)" onMouseOut="HideCont('f2',event)"><IMG NAME="f2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell f3(tag:Finance_InDepth)-->
+<TD align=center valign=middle><DIV ID="f3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="f3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="f3_td" align=center valign=center width=195 height=195 class="actTD">Financial projections show outcomes ranging from a loss of most initial investment to modest annual returns of 6–9% after year three. Committing resources to this launch may delay or limit funding for other internal initiatives.</TD></TABLE></DIV><DIV ID="f3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="f3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="f3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="f3" onMouseOver="ShowCont('f3',event)" onMouseOut="HideCont('f3',event)"><IMG NAME="f3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR><TR>
+<!--cell g0(tag:Risk_Header)-->
+<TD align=center valign=middle><DIV ID="g0_cont" style="position: relative; height: 200px; width: 120px;"><DIV ID="g0_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="g0_td" align=center valign=center width=115 height=195 class="actTD">Risk & Contingencies</TD></TABLE></DIV><DIV ID="g0_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="g0_tdbox" align=center valign=center width=115 height=195 class="boxTD">Risk & Contingencies</TD></TABLE></DIV><DIV ID="g0_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 120px; z-index: 5;"><A HREF="javascript:void(0);" NAME="g0" onMouseOver="ShowCont('g0',event)" onMouseOut="HideCont('g0',event)"><IMG NAME="g0" SRC="transp.gif" border=0 width=120 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell g1(tag:Risk_Summary)-->
+<TD align=center valign=middle><DIV ID="g1_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="g1_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="g1_td" align=center valign=center width=195 height=195 class="actTD">Several uncertainties have been identified that could meaningfully affect the outcome of the product launch</TD></TABLE></DIV><DIV ID="g1_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="g1_tdbox" align=center valign=center width=195 height=195 class="boxTD">Summary</TD></TABLE></DIV><DIV ID="g1_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="g1" onMouseOver="ShowCont('g1',event)" onMouseOut="HideCont('g1',event)"><IMG NAME="g1" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell g2(tag:Risk_Detailed)-->
+<TD align=center valign=middle><DIV ID="g2_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="g2_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="g2_td" align=center valign=center width=195 height=195 class="actTD">Key risks identified include slower-than-expected adoption, competitor price matching, and short-term production delays. Individually these risks appear manageable, but their combined effects could significantly reduce performance</TD></TABLE></DIV><DIV ID="g2_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="g2_tdbox" align=center valign=center width=195 height=195 class="boxTD">Detailed</TD></TABLE></DIV><DIV ID="g2_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="g2" onMouseOver="ShowCont('g2',event)" onMouseOut="HideCont('g2',event)"><IMG NAME="g2" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell-->
+<!--cell g3(tag:Risk_InDepth)-->
+<TD align=center valign=middle><DIV ID="g3_cont" style="position: relative; height: 200px; width: 200px;"><DIV ID="g3_txt" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 1;"><TABLE><TD ID="g3_td" align=center valign=center width=195 height=195 class="actTD">Outlined risk responses include piloting the product in one region, setting performance checkpoints after three and six months, or delaying full-scale rollout. These options reduce downside risk but also slow learning and limit potential upside if demand proves strong.</TD></TABLE></DIV><DIV ID="g3_box" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; clip: rect(0px 200px 200px 0px); z-index: 2;"><TABLE><TD ID="g3_tdbox" align=center valign=center width=195 height=195 class="boxTD">In-Depth</TD></TABLE></DIV><DIV ID="g3_img" STYLE="position: absolute; left: 0px; top: 0px; height: 200px; width: 200px; z-index: 5;"><A HREF="javascript:void(0);" NAME="g3" onMouseOver="ShowCont('g3',event)" onMouseOut="HideCont('g3',event)"><IMG NAME="g3" SRC="transp.gif" border=0 width=200 height=200></A></DIV></DIV></TD>
+<!--end cell--></TR></TABLE>
+<!-- END MOUSELAB TABLE -->
+<!--BEGIN postHTML-->
+<h3>Decision Question</h3>
+<p>Based on the information you reviewed, what is your recommendation?</p>
+<label><input type="radio" name="launch_choice" value="Launch" required> I would launch the product</label><br>
+<label><input type="radio" name="launch_choice" value="No Launch" required> I would NOT launch the product</label><br><br>
+<!--END postHTML-->
+<INPUT type="submit" value="Submit Decision" onClick="timefunction('submit','submit','submit')">
+</FORM>
+<script>
+document.forms['mlwebform'].addEventListener('submit', function(e) {
+    e.preventDefault();
+    var launch_choice = document.querySelector('input[name="launch_choice"]:checked');
+    var pdata = document.forms['mlwebform'].elements['procdata'].value;
+    if (!launch_choice) {
+        alert('Please select a decision before continuing.');
+        return;
+    }
+    window.parent.postMessage({
+        type: 'mouselabComplete',
+        data: {
+            choice: launch_choice.value,
+            processData: pdata
+        }
+    }, '*');
+});
+</script>
+</body>
+</html>
